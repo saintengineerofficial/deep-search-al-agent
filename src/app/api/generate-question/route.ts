@@ -23,7 +23,6 @@ const clarifyResearchGoals = async (topic: string) => {
         questions: z.array(z.string()),
       }),
     });
-    console.log("🚀 ~ clarifyResearchGoals ~ object:", object);
 
     return object.questions;
   } catch (error) {
