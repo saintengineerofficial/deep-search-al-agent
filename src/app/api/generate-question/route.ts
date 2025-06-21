@@ -9,15 +9,15 @@ const openrouter = createOpenRouter({
 
 const clarifyResearchGoals = async (topic: string) => {
   const prompt = `
-    Given the research topic <topic>${topic}</topic>, generate2-4 clarifying questions to help narrow down the research scope. Focus on identifying:
-    - Specifi aspects of interest
+    Given the research topic <topic>${topic}</topic>, generate 2-4 clarifying questions to help narrow down the research scope. Focus on identifying:
+    - Specific aspects of interest
     - Required depth/complexity level
     - Any particular perspective or excluded sources
     `;
 
   try {
     const { object } = await generateObject({
-      model: openrouter("meta-llama/llama-3.3-8b-instruct:free"),
+      model: openrouter("meta-llama/llama-3.3-70b-instruct:free"),
       prompt,
       schema: z.object({
         questions: z.array(z.string()),

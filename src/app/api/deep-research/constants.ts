@@ -7,9 +7,9 @@ export const RETRY_DELAY_MS = 1000; // It is the delay in milliseconds between r
 
 // Model names
 export const MODELS = {
-  PLANNING: "meta-llama/llama-3.3-8b-instruct:free",
-  EXTRACTION: "meta-llama/llama-3.3-8b-instruct:free",
-  ANALYSIS: "sarvamai/sarvam-m:free",
-  REPORT: "deepseek/deepseek-r1-0528:free",
+  PLANNING: "google/gemini-2.0-flash-exp:free",
+  EXTRACTION: "deepseek/deepseek-r1-0528:free",
+  ANALYSIS: "meta-llama/llama-3.3-70b-instruct:free",
+  REPORT: "meta-llama/llama-3.3-70b-instruct:free",
   // REPORT: "anthropic/claude-3.7-sonnet:thinking",
 };
