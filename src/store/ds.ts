@@ -1,3 +1,4 @@
+import { Activity, Source } from "@/app/api/deep-research/types";
 import { create } from "zustand";
 
 interface DeepResearchState {
@@ -19,9 +20,9 @@ interface DeepResearchActions {
   setCurrentQuestion: (index: number) => void;
   setIsCompleted: (isCompleted: boolean) => void;
   setIsLoading: (isLoading: boolean) => void;
-  setActivities: (activities: Activity[]) => void;
-  setSources: (sources: Source[]) => void;
-  setReport: (report: string) => void;
+  setActivities: (activities: Activity[]) => void,
+  setSources: (sources: Source[]) => void,
+  setReport: (report: string) => void,
 }
 
 const initialState: DeepResearchState = {
@@ -36,7 +37,9 @@ const initialState: DeepResearchState = {
   report: "",
 };
 
-export const useDeepResearchStore = create<DeepResearchState & DeepResearchActions>(set => ({
+export const useDeepResearchStore = create<
+  DeepResearchState & DeepResearchActions
+>((set) => ({
   ...initialState,
   setTopic: (topic: string) => set({ topic }),
   setQuestions: (questions: string[]) => set({ questions }),
@@ -48,15 +51,3 @@ export const useDeepResearchStore = create<DeepResearchState & DeepResearchActio
   setSources: (sources: Source[]) => set({ sources }),
   setReport: (report: string) => set({ report }),
 }));
-
-interface Activity {
-  type: "search" | "extract" | "analyze" | "generate" | "planning";
-  status: "pending" | "complete" | "warning" | "error";
-  message: string;
-  timestamp?: number;
-}
-
-interface Source {
-  url: string;
-  title: string;
-}
