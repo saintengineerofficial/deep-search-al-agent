@@ -7,6 +7,9 @@ interface DeepResearchState {
   currentQuestion: number;
   isCompleted: boolean;
   isLoading: boolean;
+  activities: Activity[];
+  sources: Source[];
+  report: string;
 }
 
 interface DeepResearchActions {
@@ -16,6 +19,9 @@ interface DeepResearchActions {
   setCurrentQuestion: (index: number) => void;
   setIsCompleted: (isCompleted: boolean) => void;
   setIsLoading: (isLoading: boolean) => void;
+  setActivities: (activities: Activity[]) => void;
+  setSources: (sources: Source[]) => void;
+  setReport: (report: string) => void;
 }
 
 const initialState: DeepResearchState = {
@@ -25,6 +31,9 @@ const initialState: DeepResearchState = {
   currentQuestion: 0,
   isCompleted: false,
   isLoading: false,
+  activities: [],
+  sources: [],
+  report: "",
 };
 
 export const useDeepResearchStore = create<DeepResearchState & DeepResearchActions>(set => ({
@@ -35,4 +44,19 @@ export const useDeepResearchStore = create<DeepResearchState & DeepResearchActio
   setCurrentQuestion: (currentQuestion: number) => set({ currentQuestion }),
   setIsCompleted: (isCompleted: boolean) => set({ isCompleted }),
   setIsLoading: (isLoading: boolean) => set({ isLoading }),
+  setActivities: (activities: Activity[]) => set({ activities }),
+  setSources: (sources: Source[]) => set({ sources }),
+  setReport: (report: string) => set({ report }),
 }));
+
+interface Activity {
+  type: "search" | "extract" | "analyze" | "generate" | "planning";
+  status: "pending" | "complete" | "warning" | "error";
+  message: string;
+  timestamp?: number;
+}
+
+interface Source {
+  url: string;
+  title: string;
+}
