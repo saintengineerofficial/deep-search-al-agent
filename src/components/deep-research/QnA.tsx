@@ -1,16 +1,14 @@
 "use client";
-
-import React, { useEffect } from "react";
-import { useChat } from "@ai-sdk/react";
-
 import { useDeepResearchStore } from "@/store/ds";
+import React, { useEffect } from "react";
 import QuestionForm from "./QuestionForm";
+import { useChat } from "@ai-sdk/react";
 import ResearchActivities from "./ResearchActivities";
 import ResearchReport from "./ResearchReport";
 import ResearchTimer from "./ResearchTimer";
 import CompletedQuestions from "./CompletedQuestions";
 
-const QAndA = () => {
+const QnA = () => {
   const {
     questions,
     isCompleted,
@@ -21,61 +19,72 @@ const QAndA = () => {
     setSources,
     setReport,
   } = useDeepResearchStore();
-  const { append, data, isLoading } = useChat({ api: "/api/deep-research" });
+
+  const { append, data, isLoading } = useChat({
+    api: "/api/deep-research",
+  });
+
 
   useEffect(() => {
     if (!data) return;
 
+    // extract activities and sources
     const messages = data as unknown[];
     const activities = messages
-      .filter(msg => typeof msg === "object" && (msg as any).type === "activity")
-      .map(msg => (msg as any).content);
+      .filter(
+        (msg) => typeof msg === "object" && (msg as any).type === "activity"
+      )
+      .map((msg) => (msg as any).content);
 
     setActivities(activities);
 
     const sources = activities
-      .filter(activity => activity.type === "extract" && activity.status === "complete")
-      .map(activity => {
+      .filter(
+        (activity) =>
+          activity.type === "extract" && activity.status === "complete"
+      )
+      .map((activity) => {
         const url = activity.message.split("from ")[1];
         return {
           url,
           title: url?.split("/")[2] || url,
         };
       });
-
     setSources(sources);
+    const reportData = messages.find(
+      (msg) => typeof msg === "object" && (msg as any).type === "report"
+    );
+    const report =
+      typeof (reportData as any)?.content === "string"
+        ? (reportData as any).content
+        : "";
 
-    const reportData = messages.find(msg => typeof msg === "object" && (msg as any).type === "report");
-    const report = typeof (reportData as any)?.content === "string" ? (reportData as any).content : "";
     setReport(report);
 
     setIsLoading(isLoading);
   }, [data, setActivities, setSources, setReport, setIsLoading, isLoading]);
 
   useEffect(() => {
-    setIsLoading(isLoading);
-  }, [isLoading, setIsLoading]);
-
-  useEffect(() => {
     if (isCompleted && questions.length > 0) {
       const clarifications = questions.map((question, index) => ({
-        question,
+        question: question,
         answer: answers[index],
       }));
 
       append({
         role: "user",
-        content: JSON.stringify({ topic, clarifications }),
+        content: JSON.stringify({
+          topic: topic,
+          clarifications: clarifications,
+        }),
       });
     }
-  }, [answers, append, isCompleted, questions, topic]);
+  }, [isCompleted, questions, answers, topic, append]);
 
-  if (!questions.length) {
-    return null;
-  }
+  if (questions.length === 0) return null;
 
   return (
-    <div className='flex gap-4 w-full flex-col items-center mb-16'>
+    <div className="flex gap-[4px] w-full flex-col items-center mb-[16px]">
       <QuestionForm />
       <CompletedQuestions />
       <ResearchTimer />
@@ -85,4 +94,4 @@ const QAndA = () => {
   );
 };
 
-export default QAndA;
+export default QnA;

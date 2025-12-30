@@ -1,18 +1,16 @@
 "use client";
-
+import { useDeepResearchStore } from "@/store/ds";
 import React, { ComponentPropsWithRef } from "react";
+import { Card } from "../ui/card";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Download } from "lucide-react";
 import {
   Prism as SyntaxHighlighter,
-  type SyntaxHighlighterProps,
+  SyntaxHighlighterProps,
 } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
-
-import { useDeepResearchStore } from "@/store/ds";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+import { Button } from "../ui/button";
 
 type CodeProps = ComponentPropsWithRef<"code"> & {
   inline?: boolean;
