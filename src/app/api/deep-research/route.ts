@@ -1,29 +1,30 @@
 import { createDataStreamResponse } from "ai";
-import { ResearchState } from "./type";
+import { ResearchState } from "./types";
 import { deepResearch } from "./main";
 
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
-    const lastMessage = messages[messages.length - 1].content;
-    const parsedMessage = JSON.parse(lastMessage);
 
-    const topic = parsedMessage.topic;
-    const clarifications = parsedMessage.clarifications;
+    const lastMessageContent = messages[messages.length - 1].content;
+
+    const parsed = JSON.parse(lastMessageContent);
+
+    const topic = parsed.topic;
+    const clerifications = parsed.clerifications;
 
     return createDataStreamResponse({
-      status: 200,
-      statusText: "OK",
-      async execute(dataStream) {
-        // dataStream.writeData({ value: "Hello" });
+      execute: async dataStream => {
+        // Write data
+        //   dataStream.writeData({ value: 'Hello' });
 
         const researchState: ResearchState = {
+          topic: topic,
           completedSteps: 0,
           tokenUsed: 0,
           findings: [],
           processedUrl: new Set(),
-          clarificationsText: JSON.stringify(clarifications),
-          topic,
+          clerificationsText: JSON.stringify(clerifications),
         };
         await deepResearch(researchState, dataStream);
       },
