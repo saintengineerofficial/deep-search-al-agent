@@ -8,8 +8,14 @@ export const RETRY_DELAY_MS = 1000; // It is the delay in milliseconds between r
 // Model names
 export const MODELS = {
   PLANNING: "google/gemini-2.0-flash-exp:free",
-  EXTRACTION: "deepseek/deepseek-r1-0528:free",
-  ANALYSIS: "meta-llama/llama-3.3-70b-instruct:free",
-  REPORT: "meta-llama/llama-3.3-70b-instruct:free",
-  // REPORT: "anthropic/claude-3.7-sonnet:thinking",
+  EXTRACTION: "google/gemini-2.0-flash-exp:free",
+  ANALYSIS: "google/gemini-2.0-flash-exp:free",
+  REPORT: "google/gemini-2.0-flash-exp:free",
 };
+
+// export const MODELS = {
+//   PLANNING: "meta-llama/llama-3.2-3b-instruct:free",
+//   EXTRACTION: "qwen/qwen-2.5-7b-instruct:free",
+//   ANALYSIS: "meta-llama/llama-3.2-3b-instruct:free",
+//   REPORT: "meta-llama/llama-3.2-3b-instruct:free",
+// };
