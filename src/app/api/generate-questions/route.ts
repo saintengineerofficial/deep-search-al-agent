@@ -9,8 +9,8 @@ const openrouter = createOpenRouter({
 
 const clarifyResearchGoals = async (topic: string) => {
   const prompt = `
-    Given the research topic <topic>${topic}</topic>, generate2-4 clarifying questions to help narrow down the research scope. Focus on identifying:
-    - Specifi aspects of interest
+    Given the research topic <topic>${topic}</topic>, generate 2-4 clarifying questions to help narrow down the research scope. Focus on identifying:
+    - Specific aspects of interest
     - Required depth/complexity level
     - Any particular perspective or excluded sources
     `;
@@ -20,13 +20,16 @@ const clarifyResearchGoals = async (topic: string) => {
       model: openrouter("meta-llama/llama-3.3-70b-instruct"),
       prompt,
       schema: z.object({
-        questions: z.array(z.string()),
+        questions: z.array(z.string()).min(2).max(4),
       }),
+      mode: "json",
+      system: "Return only valid JSON that matches the schema.",
     });
 
     return object.questions;
   } catch (error) {
-    console.log("Error while generating questions: ", error);
+    console.error("Error while generating questions: ", error);
+    throw error;
   }
 };
 
@@ -36,7 +39,16 @@ export async function POST(req: Request) {
 
   try {
     const questions = await clarifyResearchGoals(topic);
-    console.log("Questions: ", questions);
+
+    if (!questions || questions.length === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "No questions generated",
+        },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(questions);
   } catch (error) {

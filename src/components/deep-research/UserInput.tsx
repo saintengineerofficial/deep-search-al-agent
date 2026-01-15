@@ -24,7 +24,6 @@ const UserInput = () => {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
@@ -34,9 +33,10 @@ const UserInput = () => {
         body: JSON.stringify({ topic: values.input }),
       });
       const data = await response.json();
+
       setTopic(values.input);
       setQuestions(data);
-      form.reset();
+      // form.reset();
     } catch (error) {
       console.log(error);
     } finally {

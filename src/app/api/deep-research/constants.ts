@@ -7,15 +7,15 @@ export const RETRY_DELAY_MS = 1000; // It is the delay in milliseconds between r
 
 // Model names
 export const MODELS = {
-  PLANNING: "google/gemini-2.0-flash-exp:free",
-  EXTRACTION: "google/gemini-2.0-flash-exp:free",
-  ANALYSIS: "google/gemini-2.0-flash-exp:free",
-  REPORT: "google/gemini-2.0-flash-exp:free",
+  PLANNING: "meta-llama/llama-3.3-70b-instruct",
+  ANALYSIS: "meta-llama/llama-3.3-70b-instruct",
+  REPORT: "meta-llama/llama-3.3-70b-instruct",
+  EXTRACTION: "qwen/qwen-2.5-vl-7b-instruct",
 };
 
 // export const MODELS = {
-//   PLANNING: "meta-llama/llama-3.2-3b-instruct:free",
-//   EXTRACTION: "qwen/qwen-2.5-7b-instruct:free",
-//   ANALYSIS: "meta-llama/llama-3.2-3b-instruct:free",
-//   REPORT: "meta-llama/llama-3.2-3b-instruct:free",
+//   PLANNING: "openai/gpt-4o",
+//   EXTRACTION: "openai/gpt-4o-mini",
+//   ANALYSIS: "openai/gpt-4o",
+//   REPORT: "google/gemini-2.0-flash-thinking-exp:free",
 // };

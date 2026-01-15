@@ -16,6 +16,7 @@ const formSchema = z.object({
 const QuestionForm = () => {
 
   const { questions, currentQuestion, answers, setCurrentQuestion, setAnswers, setIsCompleted, isLoading, isCompleted } = useDeepResearchStore()
+  console.log("🚀 ~ QuestionForm ~ questions:", questions)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
