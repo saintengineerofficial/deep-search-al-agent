@@ -1,5 +1,5 @@
 import { generateObject, generateText } from "ai";
-import { openrouter } from "./services";
+import { deepseek } from "./services";
 import { ActivityTracker, ModelCallOptions, ResearchState } from "./types";
 import { MAX_RETRY_ATTEMPTS, RETRY_DELAY_MS } from "./constants";
 import { delay } from "./utils";
@@ -7,7 +7,7 @@ import { delay } from "./utils";
 export async function callModel<T>(
   { model, prompt, system, schema, activityType = "generate" }: ModelCallOptions<T>,
   researchState: ResearchState,
-  activityTracker: ActivityTracker
+  activityTracker: ActivityTracker,
 ): Promise<T | string> {
   let attempts = 0;
   let lastError: Error | null = null;
@@ -16,10 +16,13 @@ export async function callModel<T>(
     try {
       if (schema) {
         const { object, usage } = await generateObject({
-          model: openrouter(model),
+          model: deepseek(model),
           prompt,
-          system,
           schema: schema,
+          mode: "json",
+          system: system
+            ? `${system}\nReturn only valid JSON that matches the schema.`
+            : "Return only valid JSON that matches the schema.",
         });
 
         researchState.tokenUsed += usage.totalTokens;
@@ -28,7 +31,7 @@ export async function callModel<T>(
         return object;
       } else {
         const { text, usage } = await generateText({
-          model: openrouter(model),
+          model: deepseek(model),
           prompt,
           system,
         });

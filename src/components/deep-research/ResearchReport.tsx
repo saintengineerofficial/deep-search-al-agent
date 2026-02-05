@@ -36,9 +36,9 @@ const ResearchReport = () => {
 
   if (report.length <= 0 && isLoading) {
     return (
-      <Card className="p-[4px] max-w-[50vw] bg-white/60 border px-[4px] py-[2px] rounded-xl">
-        <div className="flex flex-col items-center justify-center space-y-[4px] p-[8px]">
-          <div className="animate-spin rounded-full h-[8px] w-[8px] border-b-2 border-primary"></div>
+      <Card className="p-4 max-w-[50vw] bg-white/60 border px-4 py-2 rounded-xl">
+        <div className="flex flex-col items-center justify-center space-y-4 p-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           <p className="text-sm text-muted-foreground">
             Researching your topic...
           </p>
