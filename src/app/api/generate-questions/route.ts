@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { generateObject } from "ai";
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { z } from "zod";
+import { deepseek } from "../deep-research/services";
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY || "",
@@ -17,7 +18,8 @@ const clarifyResearchGoals = async (topic: string) => {
 
   try {
     const { object } = await generateObject({
-      model: openrouter("meta-llama/llama-3.3-70b-instruct"),
+      model: deepseek("deepseek-chat"),
+      // model: openrouter("meta-llama/llama-3.3-70b-instruct"),
       prompt,
       schema: z.object({
         questions: z.array(z.string()).min(2).max(4),
@@ -46,7 +48,7 @@ export async function POST(req: Request) {
           success: false,
           error: "No questions generated",
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -58,7 +60,7 @@ export async function POST(req: Request) {
         success: false,
         error: "Failed to generate questions",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

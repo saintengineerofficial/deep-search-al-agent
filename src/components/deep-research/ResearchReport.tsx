@@ -4,10 +4,7 @@ import React, { ComponentPropsWithRef } from "react";
 import { Card } from "../ui/card";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import {
-  Prism as SyntaxHighlighter,
-  SyntaxHighlighterProps,
-} from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter, SyntaxHighlighterProps } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Download } from "lucide-react";
 import { Button } from "../ui/button";
@@ -36,12 +33,10 @@ const ResearchReport = () => {
 
   if (report.length <= 0 && isLoading) {
     return (
-      <Card className="p-4 max-w-[50vw] bg-white/60 border px-4 py-2 rounded-xl">
-        <div className="flex flex-col items-center justify-center space-y-4 p-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          <p className="text-sm text-muted-foreground">
-            Researching your topic...
-          </p>
+      <Card className='p-4 max-w-[50vw] bg-white/60 border px-4 py-2 rounded-xl'>
+        <div className='flex flex-col items-center justify-center space-y-4 p-8'>
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+          <p className='text-sm text-muted-foreground'>Researching your topic...</p>
         </div>
       </Card>
     );
@@ -51,21 +46,16 @@ const ResearchReport = () => {
 
   return (
     <Card
-      className="max-w-[90vw] xl:max-w-[60vw] relative px-[4px] py-[6px] rounded-xl border-black/10 border-solid shadow-none p-[6px]
+      className='max-w-[90vw] xl:max-w-[60vw] relative px-[4px] py-[6px] rounded-xl border-black/10 border-solid shadow-none p-[6px]
      bg-white/60 backdrop-blur-xl border antialiased
-    "
-    >
-      <div className="flex justify-end gap-[2px] mb-[4px] absolute top-[4px] right-[4px]">
-        <Button
-          size="sm"
-          className="flex items-center gap-[2px] rounded"
-          onClick={handleMarkdownDownload}
-        >
-          <Download className="w-[4px] h-[4px]" /> Download
+    '>
+      <div className='flex justify-end gap-[2px] mb-[4px] absolute top-[4px] right-[4px]'>
+        <Button size='sm' className='flex items-center gap-[2px] rounded' onClick={handleMarkdownDownload}>
+          <Download className='w-[4px] h-[4px]' /> Download
         </Button>
       </div>
 
-      <div className="prose prose-sm md:prose-base max-w-none prose-pre:p-[2px] overflow-x-scroll">
+      <div className='prose prose-sm md:prose-base max-w-none prose-pre:p-[2px] overflow-x-scroll'>
         <Markdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -90,8 +80,7 @@ const ResearchReport = () => {
                 </code>
               );
             },
-          }}
-        >
+          }}>
           {report.split("<report>")[1].split("</report>")[0]}
         </Markdown>
       </div>

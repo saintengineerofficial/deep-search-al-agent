@@ -20,9 +20,7 @@ export async function callModel<T>(
           prompt,
           schema: schema,
           mode: "json",
-          system: system
-            ? `${system}\nReturn only valid JSON that matches the schema.`
-            : "Return only valid JSON that matches the schema.",
+          system: system ? `${system}\nReturn only valid JSON that matches the schema.` : "Return only valid JSON that matches the schema.",
         });
 
         researchState.tokenUsed += usage.totalTokens;

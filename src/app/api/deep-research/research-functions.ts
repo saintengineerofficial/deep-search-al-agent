@@ -24,7 +24,7 @@ export async function generateSearchQueries(researchState: ResearchState, activi
         activityType: "planning",
       },
       researchState,
-      activityTracker
+      activityTracker,
     );
 
     activityTracker.add("planning", "complete", "Crafted the research plan");
@@ -88,7 +88,7 @@ export async function extractContent(content: string, url: string, researchState
         activityType: "extract",
       },
       researchState,
-      activityTracker
+      activityTracker,
     );
 
     activityTracker.add("extract", "complete", `Extracted content from ${url}`);
@@ -139,7 +139,7 @@ export async function analyzeFindings(researchState: ResearchState, currentQueri
         activityType: "analyze",
       },
       researchState,
-      activityTracker
+      activityTracker,
     );
 
     const isContentSufficient = typeof result !== "string" && result.sufficient;
@@ -170,7 +170,7 @@ export async function generateReport(researchState: ResearchState, activityTrack
         activityType: "generate",
       },
       researchState,
-      activityTracker
+      activityTracker,
     );
 
     activityTracker.add("generate", "complete", `Generated comprehensive report, Total tokens used: ${researchState.tokenUsed}. Research completed in ${researchState.completedSteps} steps.`);
